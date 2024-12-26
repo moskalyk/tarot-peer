@@ -1,0 +1,23 @@
+aqua Main
+
+import "@fluencelabs/aqua-lib/builtin.aqua"
+import "@fluencelabs/aqua-lib/subnet.aqua"
+
+use "deals.aqua"
+use "hosts.aqua"
+import "services.aqua"
+
+-- IMPORTANT: Add exports for all functions that you want to run
+export relayTarot, TarotService
+
+-- DOCUMENTATION:
+-- https://fluence.dev
+
+service TarotService("tarotService"):
+    relay(index: i32) -> bool
+
+-- remote
+func relayTarot(remotePeer: PeerId, index: i32) -> bool:
+    on remotePeer:
+        res <- TarotService.relay(index)
+    <- res
